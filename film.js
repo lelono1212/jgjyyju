@@ -121,7 +121,6 @@ if (null != autoSafelink)
 
 
 // Cek Paramater ?url=
-let cekUrlSafelink = getVariable("url");
 
 //Generate Link (decode)
 if (0 != cekUrlSafelink) {
