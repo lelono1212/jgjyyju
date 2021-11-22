@@ -119,8 +119,52 @@ if (null != autoSafelink)
                 t.send(null);
         });
 
+//Mengambil Kode Hasil Generate Pada Paramater ?Url=
+function getVariable(e) {
+    for (
+        var t = {
+                _keyStr: keyGenerator,
+                key: function (e) {
+                    var n,
+                        r,
+                        a,
+                        o,
+                        i,
+                        l,
+                        c = "",
+                        d = 0;
+                    for (e = e.replace(/[^A-Za-z0-9\+\/\=]/g, ""); d < e.length; )
+                        (n = (this._keyStr.indexOf(e.charAt(d++)) << 2) | ((o = this._keyStr.indexOf(e.charAt(d++))) >> 4)),
+                            (r = ((15 & o) << 4) | ((i = this._keyStr.indexOf(e.charAt(d++))) >> 2)),
+                            (a = ((3 & i) << 6) | (l = this._keyStr.indexOf(e.charAt(d++)))),
+                            (c += String.fromCharCode(n)),
+                            64 != i && (c += String.fromCharCode(r)),
+                            64 != l && (c += String.fromCharCode(a));
+                    return (c = t._utf8_key(c));
+                },
+                _utf8_key: function (e) {
+                    for (var t = "", n = 0, r = (c1 = c2 = 0); n < e.length; )
+                        (r = e.charCodeAt(n)) < 128
+                            ? ((t += String.fromCharCode(r)), n++)
+                            : r > 191 && r < 224
+                            ? ((c2 = e.charCodeAt(n + 1)), (t += String.fromCharCode(((31 & r) << 6) | (63 & c2))), (n += 2))
+                            : ((c2 = e.charCodeAt(n + 1)), (c3 = e.charCodeAt(n + 2)), (t += String.fromCharCode(((15 & r) << 12) | ((63 & c2) << 6) | (63 & c3))), (n += 3));
+                    return t;
+                },
+            },
+            n = window.location.search.substring(1).split("&"),
+            r = 0;
+        r < n.length;
+        r++
+    ) {
+        var a = n[r].split("=");
+        if (a[0] == e) return t.key(a[1]);
+    }
+    return !1;
+}
 
 // Cek Paramater ?url=
+let cekUrlSafelink = getVariable("url");
 
 //Generate Link (decode)
 if (0 != cekUrlSafelink) {
